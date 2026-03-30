@@ -21,6 +21,11 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request -> validate([
+            'name' => 'required|string',
+            'price' => 'required|decimal',
+            'stock' => 'required|integer'
+        ]);
         // recupère les informations dans la variable request , dans la fonction create
         $product = Product::create($request-> all());
         return response()->json($product, 201);
@@ -39,6 +44,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request -> validate([
+            'name' => 'required|string',
+            'price' => 'required|decimal',
+            'stock' => 'required|integer',
+        ]);
         $product = Product::findOrFail($id);
         $product -> update($request -> all());
         return response()->json($product);
